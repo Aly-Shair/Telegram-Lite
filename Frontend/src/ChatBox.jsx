@@ -10,7 +10,7 @@ const ChatBox = () => {
   const { id } = useParams(); // receiver ID
   // console.log(id);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [messages, setMessages] = useState([]);
   const [receiverUser, setReceiverUser] = useState(null);
   const [newMessage, setNewMessage] = useState("");
@@ -18,8 +18,8 @@ const ChatBox = () => {
   const { socket } = useSocketContext();
   const newMessageRef = React.useRef(null);
   const bottomRef = React.useRef(null);
-  const [loading, setLoading] = useState(true)
-  
+  const [loading, setLoading] = useState(true);
+  const { chatters, setChatters } = usePastChattersContext();
 
   useEffect(() => {
     const handleFunction = (newMessage) => {
@@ -59,32 +59,42 @@ const ChatBox = () => {
       setMessages(data.data);
     }
 
-    if (id) 
-      fetchMessages()
-    .then(setLoading(false))
+    if (id) fetchMessages().then(setLoading(false));
   }, [id]);
 
   useEffect(() => {
-  if (newMessageRef.current) {
-    newMessageRef.current.scrollIntoView();
-  } else if (bottomRef.current) {
-    bottomRef.current.scrollIntoView();
-  }
-  // if (newMessageRef.current) {
-  //   newMessageRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-  // } else if (bottomRef.current) {
-  //   bottomRef.current.scrollIntoView({ behavior: "smooth"});
-  // }
-}, [messages]);
+    if (newMessageRef.current) {
+      newMessageRef.current.scrollIntoView();
+    } else if (bottomRef.current) {
+      bottomRef.current.scrollIntoView();
+    }
+    // if (newMessageRef.current) {
+    //   newMessageRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    // } else if (bottomRef.current) {
+    //   bottomRef.current.scrollIntoView({ behavior: "smooth"});
+    // }
+  }, [messages]);
 
-
-  const {chatters, setChatters} = usePastChattersContext()
   const appendReceiverUserInChatters = () => {
-    if(chatters.some(u => u?._id === receiverUser?._id))
-        return
-    
-    setChatters((prev) => [...prev, receiverUser])
-  }
+    if (chatters.some((u) => u?._id === receiverUser?._id)) {
+      setChatters((prevChatters) => {
+        const existingIndex = prevChatters.findIndex((u) => u._id === receiverUser?._id);
+        
+        if (existingIndex !== -1) {
+        // Move existing chatter to top
+        const updatedChatters = [...prevChatters];
+        const [movedUser] = updatedChatters.splice(existingIndex, 1);
+        return [movedUser, ...updatedChatters];
+      }
+
+      return prevChatters; // return unchanged if not found, actual fetch will happen below
+    });
+
+    return
+    }
+
+    setChatters((prev) => [...prev, receiverUser]);
+  };
 
   const handleSendMessage = async () => {
     if (!newMessage?.trim()) return;
@@ -112,24 +122,23 @@ const ChatBox = () => {
       setMessages((prev) => [...prev, data.data]);
       setNewMessage("");
 
-      appendReceiverUserInChatters()
-
+      appendReceiverUserInChatters();
     } catch (err) {
       console.error("Failed to send message", err);
     }
   };
 
-  if(loading){
-    return <Loader/>
+  if (loading) {
+    return <Loader />;
   }
 
   return (
     <div className="chatBox">
       <div className="chatHeader">
-        {/* <span className="backArrow" >&larr;</span> */}
-      
-
-<i className="backArrow fas fa-arrow-left" onClick={() => navigate("/")}></i> 
+        <i
+          className="backArrow fas fa-arrow-left"
+          onClick={() => navigate("/")}
+        ></i>
         <h3>
           Chat with {receiverUser ? receiverUser?.username : `User ${id}`}
         </h3>
@@ -164,7 +173,9 @@ const ChatBox = () => {
           return (
             <React.Fragment key={msg._id}>
               {showNewMessageBar && (
-                <div className="newMessageBar" ref={newMessageRef}>New Messages</div>
+                <div className="newMessageBar" ref={newMessageRef}>
+                  New Messages
+                </div>
               )}
               <div
                 className={`message ${

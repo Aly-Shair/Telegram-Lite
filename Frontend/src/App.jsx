@@ -14,6 +14,7 @@ function App() {
   const { login, logout } = useUserContext();
   const { socket } = useSocketContext();
   const [leftOpen, setLeftOpen] = useState(true)
+  const {chatters, setChatters} = usePastChattersContext()
 
   // current user
   useEffect(() => {
@@ -36,7 +37,6 @@ function App() {
     
   }, []);
 
-  const {chatters, setChatters} = usePastChattersContext()
   // const [chatters, setChatters] = useState([]);
   // past chatters
   useEffect(() => {
@@ -146,6 +146,7 @@ function App() {
 
     return () => socket?.off("newMessage", handleNewChatter);
   }, [socket, chatters]);
+  // }, [socket]);
 
  
 
