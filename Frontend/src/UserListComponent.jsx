@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useUserContext } from "./context/userContext.js";
 import { useSocketContext } from "./context/socketContext.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const UserListComponent = ({ _id, username, password }) => {
+  const {id} = useParams()
+  
   const { userData } = useUserContext();
   const { onlineUsers, socket } = useSocketContext();
   const [unreadCount, setUnreadCount] = useState(0);
@@ -19,6 +21,7 @@ export const UserListComponent = ({ _id, username, password }) => {
 
   // Fetch initial unread count on mount
   useEffect(() => {
+
     console.log(socket, "this is socket");
 
     const unreadMessages = async () => {
@@ -42,7 +45,7 @@ export const UserListComponent = ({ _id, username, password }) => {
   const handleNewMessage = (newMessage) => {
       console.log("comparing ids: ", newMessage.sender, _id);
 
-      if (newMessage.sender === _id) {
+      if (newMessage.sender === _id && id != _id) {
         setUnreadCount(unreadRef.current + 1); // use ref to avoid stale closure
       }
     };
@@ -53,13 +56,13 @@ export const UserListComponent = ({ _id, username, password }) => {
     return () => {
       socket?.off("newMessage", handleNewMessage);
     };
-  }, [socket, _id]);
+  }, [socket, _id, id]);
 
   return (
     <div
       onClick={() => {
         setUnreadCount(0);
-        navigate(`c/${_id}`);
+        navigate(`/c/${_id}`);
       }}
       className={`user ${_id === userData?._id ? "active" : ""}`}
     >
