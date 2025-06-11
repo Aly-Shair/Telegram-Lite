@@ -52,7 +52,9 @@ function Login() {
   return (
     <div className="login-page">
       <form className="login-form" onSubmit={handleSubmit}>
+        
         <h2>Welcome to ChatApp</h2>
+        
         <input
           type="text"
           placeholder="Enter your username"
@@ -75,7 +77,17 @@ function Login() {
           {loading ? 'Logging in...' : 'Login'}
         </button>
         {error && <p className="error">{error}</p>}
+       <p style={{ textAlign: 'center', marginTop: '10px' }}>
+      Don't have an account?{' '}
+      <span
+        style={{ color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
+        onClick={() => navigate('/register')}
+      >
+        Register here
+      </span>
+    </p>
       </form>
+      
     </div>
   )
 }

@@ -67,6 +67,15 @@ function Register() {
           {loading ? 'Registering...' : 'Register'}
         </button>
         {error && <p className="error">{error}</p>}
+         <p style={{ textAlign: 'center', marginTop: '10px' }}>
+      Already have an account?{' '}
+      <span
+        style={{ color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}
+        onClick={() => navigate('/login')}
+      >
+        Login here
+      </span>
+    </p>
       </form>
     </div>
   )

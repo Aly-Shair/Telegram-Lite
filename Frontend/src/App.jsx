@@ -156,7 +156,7 @@ function App() {
 
   return (
     <div className="chatapp">
-      <div className="left">
+      <div className="left" id="left">
         {leftOpen && <div className="searchSystem">
           <input
             type="search"
@@ -166,7 +166,7 @@ function App() {
           />
         </div>}
         <div className="userslist">
-          {users?.map((user, index) => (
+          {leftOpen && users?.map((user, index) => (
             <div key={index}>
               <UserListComponent {...user} />
             </div>
@@ -180,7 +180,7 @@ function App() {
         </div>
       </div>
 
-      <div className="right">
+      <div className="right" id="right">
         <Outlet />
       </div>
     </div>

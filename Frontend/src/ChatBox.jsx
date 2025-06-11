@@ -24,10 +24,10 @@ const ChatBox = () => {
   const [isReplying, setIsReplying] = useState(null);
 
   useEffect(() => {
-    didFetchConversation.current = false
+    didFetchConversation.current = false;
     setMessages([]);
     setLoading(true);
-  },[id])
+  }, [id]);
 
   // Fetch receiver user
   useEffect(() => {
@@ -42,17 +42,16 @@ const ChatBox = () => {
   }, [id]);
 
   const scrollToNewMessageBar = async () => {
-
     console.log("scrolling");
     console.log("newMessageRef.current", newMessageRef.current);
     console.log("bottomRef.current", bottomRef.current);
-    
+
     if (newMessageRef.current) {
       newMessageRef.current.scrollIntoView();
     } else if (bottomRef.current) {
       bottomRef.current.scrollIntoView();
     }
-  }
+  };
 
   // Fetch chat history
   useEffect(() => {
@@ -72,8 +71,8 @@ const ChatBox = () => {
       console.log("this is conversation: ", data?.data);
     }
 
-    if (id) fetchMessages().then(() => setLoading(false))
-      // .then(() => setTimeout(scrollToNewMessageBar, 0));
+    if (id) fetchMessages().then(() => setLoading(false));
+    // .then(() => setTimeout(scrollToNewMessageBar, 0));
   }, [id]);
 
   useEffect(() => {
@@ -88,8 +87,6 @@ const ChatBox = () => {
     //   bottomRef.current.scrollIntoView({ behavior: "smooth"});
     // }
   }, [messages]);
-
-  
 
   useEffect(() => {
     const handleFunction = async (newMessage) => {
@@ -225,12 +222,12 @@ const ChatBox = () => {
 
         // Step 3: Append the new incoming message
         return [...updatedConversation, data?.data];
-      })
-      
-      markMessagesAsRead(unreadMessageIds)
-      setNewMessage("")
+      });
+
+      markMessagesAsRead(unreadMessageIds);
+      setNewMessage("");
       setIsReplying(null);
-      appendReceiverUserInChatters()
+      appendReceiverUserInChatters();
     } catch (err) {
       console.error("Failed to send message", err);
     }
@@ -245,7 +242,11 @@ const ChatBox = () => {
       <div className="chatHeader">
         <i
           className="backArrow fas fa-arrow-left"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            navigate("/");
+            const left = document.getElementById("left");
+            left.classList.remove("leftClosed");
+          }}
         ></i>
         <h3>
           Chat with {receiverUser ? receiverUser?.username : `User ${id}`}
@@ -300,21 +301,26 @@ const ChatBox = () => {
                     >
                       Reply
                     </div>
-                    <div className="c-messageControllerName">Delete</div>
+                    {/* <div className="c-messageControllerName">Delete</div> */}
                   </div>
                 </div>
                 {msg?.repliedTo?.message && (
                   <div
                     className="c-repliedToTextContent"
                     onClick={() => {
-                      const element = document.getElementById(msg.repliedTo._id);
+                      const element = document.getElementById(
+                        msg.repliedTo._id
+                      );
                       if (element) {
                         element.scrollIntoView({
                           behavior: "smooth",
                           block: "center",
                         });
                         element.classList.add("highlight");
-                        setTimeout(() => element.classList.remove("highlight"), 2000)
+                        setTimeout(
+                          () => element.classList.remove("highlight"),
+                          2000
+                        );
                       }
                     }}
                   >

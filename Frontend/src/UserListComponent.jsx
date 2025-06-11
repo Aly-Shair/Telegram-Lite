@@ -63,6 +63,8 @@ export const UserListComponent = ({ _id, username, password }) => {
       onClick={() => {
         setUnreadCount(0);
         navigate(`/c/${_id}`);
+        const left = document.getElementById("left")
+        left.classList.add("leftClosed")
       }}
       className={`user ${_id === userData?._id ? "active" : ""}`}
     >
