@@ -23,7 +23,8 @@ const io = new Server(server, {
   cors:{
         // origin: ["http://localhost:5173"],
         // origin: ["*"],
-        origin: origin,
+        // origin: origin,
+        origin: 'https://telelite-ivory.vercel.app',
         methods:["GET","POST"],
         credentials: true
       } 
@@ -33,7 +34,8 @@ const io = new Server(server, {
       cors({
         // origin: "http://localhost:5173",
         // origin: "*",
-        origin: origin,
+        // origin: origin,
+        origin: 'https://telelite-ivory.vercel.app',
         credentials: true,
   })
 );
