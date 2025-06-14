@@ -7,6 +7,7 @@ import { useSocketContext } from "./context/socketContext.js";
 import { UserListComponent } from "./UserListComponent.jsx";
 import { usePastChattersContext } from "./context/pastChattersContext.js";
 import { Loader } from "./Loader.jsx";
+import { baseUrl } from "../baseUrl.js";
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
   // current user
   useEffect(() => {
     const fetchuserData = async () => {
-      const res = await fetch("/api/v1/users/current", {
+      const res = await fetch(`${baseUrl}/api/v1/users/current`, {
         credentials: "include",
       });
       if (!res.ok) {
@@ -44,7 +45,7 @@ function App() {
   useEffect(() => {
     async function fetchChatters() {
       try {
-        const res = await fetch("/api/v1/users/chatters", {
+        const res = await fetch(`${baseUrl}/api/v1/users/chatters`, {
           credentials: "include",
         });
 
@@ -77,7 +78,7 @@ function App() {
 
     async function fetchChatters() {
       try {
-        const res = await fetch(`/api/v1/users/?search=${user}`, {
+        const res = await fetch(`${baseUrl}/api/v1/users/?search=${user}`, {
           credentials: "include",
         });
 
@@ -127,7 +128,7 @@ function App() {
       console.log("i am fetching");
       
       try {
-        const res = await fetch(`/api/v1/users/${senderId}`, {
+        const res = await fetch(`${baseUrl}/api/v1/users/${senderId}`, {
           credentials: "include",
         });
         if (!res.ok) throw new Error("Failed to fetch user");

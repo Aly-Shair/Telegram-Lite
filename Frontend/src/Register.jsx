@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './App.css'
 import { useNavigate } from 'react-router-dom';
+import { baseUrl } from '../baseUrl';
 
 
 function Register() {
@@ -18,7 +19,7 @@ function Register() {
     setError(null)
 
     try {
-      const response = await fetch(`/api/v1/users/register`, {
+      const response = await fetch(`${baseUrl}/api/v1/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

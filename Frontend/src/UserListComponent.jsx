@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useUserContext } from "./context/userContext.js";
 import { useSocketContext } from "./context/socketContext.js";
 import { useNavigate, useParams } from "react-router-dom";
+import { baseUrl } from "../baseUrl.js";
 
 export const UserListComponent = ({ _id, username, password }) => {
   const {id} = useParams()
@@ -26,7 +27,7 @@ export const UserListComponent = ({ _id, username, password }) => {
 
     const unreadMessages = async () => {
       const res = await fetch(
-        `/api/v1/messages/unreadcount/${_id}`,
+        `${baseUrl}/api/v1/messages/unreadcount/${_id}`,
         {
           credentials: "include",
         }
