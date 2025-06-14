@@ -14,7 +14,7 @@ function App() {
 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const { login, logout } = useUserContext();
+  const { login, logout, userData } = useUserContext();
   const { socket } = useSocketContext();
   const [leftOpen, setLeftOpen] = useState(true)
   const {chatters, setChatters} = usePastChattersContext()
@@ -39,6 +39,13 @@ function App() {
 
     fetchuserData()
     
+  }, []);
+
+
+   useEffect(() => {
+    if(!userData){
+      navigate("/login")
+    }
   }, []);
 
   // const [chatters, setChatters] = useState([]);
