@@ -10,20 +10,22 @@ import { Loader } from "./Loader.jsx";
 import { baseUrl } from "../baseUrl.js";
 
 function App() {
-
-
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { login, logout, userData } = useUserContext();
   const { socket } = useSocketContext();
-  const [leftOpen, setLeftOpen] = useState(true)
-  const {chatters, setChatters} = usePastChattersContext()
+  const [leftOpen, setLeftOpen] = useState(true);
+  const { chatters, setChatters } = usePastChattersContext();
 
   // current user
   useEffect(() => {
     const fetchuserData = async () => {
       const res = await fetch(`${baseUrl}/api/v1/users/current`, {
+        method: 'GET',
         credentials: "include",
+        headers: {
+    "Content-Type": "application/json",
+  },
       });
       if (!res.ok) {
         logout();
@@ -32,19 +34,17 @@ function App() {
       }
 
       const data = await res.json();
-      
+
       login(data?.data);
       //  console.log(data);
     };
 
-    fetchuserData()
-    
+    fetchuserData();
   }, []);
 
-
-   useEffect(() => {
-    if(!userData){
-      navigate("/login")
+  useEffect(() => {
+    if (!userData) {
+      navigate("/login");
     }
   }, []);
 
@@ -54,7 +54,11 @@ function App() {
     async function fetchChatters() {
       try {
         const res = await fetch(`${baseUrl}/api/v1/users/chatters`, {
-          credentials: "include",
+         method: 'GET',
+        credentials: "include",
+        headers: {
+    "Content-Type": "application/json",
+  },
         });
 
         if (!res.ok) {
@@ -75,7 +79,7 @@ function App() {
     fetchChatters();
   }, []);
 
-   const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [user, setUser] = useState("");
   // Fetch users by search
   useEffect(() => {
@@ -87,7 +91,11 @@ function App() {
     async function fetchChatters() {
       try {
         const res = await fetch(`${baseUrl}/api/v1/users/?search=${user}`, {
+          method: "GET",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
 
         if (!res.ok) {
@@ -108,86 +116,105 @@ function App() {
 
   useEffect(() => {
     const handleNewChatter = async (newMessage) => {
-    const senderId = newMessage?.sender;
-    console.log("this is newMessage: ",newMessage);
-    if (!senderId){
-      console.log("this is senderId:", senderId);
-      return
-    } ; 
-    console.log(senderId);
-    
-
-    // If user not in the list, fetch and add to top
-    if (chatters.some((u) => u?._id === senderId)) {
-      setChatters((prevChatters) => {
-        const existingIndex = prevChatters.findIndex((u) => u._id === senderId);
-        
-        if (existingIndex !== -1) {
-        // Move existing chatter to top
-        const updatedChatters = [...prevChatters];
-        const [movedUser] = updatedChatters.splice(existingIndex, 1);
-        return [movedUser, ...updatedChatters];
+      const senderId = newMessage?.sender;
+      console.log("this is newMessage: ", newMessage);
+      if (!senderId) {
+        console.log("this is senderId:", senderId);
+        return;
       }
+      console.log(senderId);
 
-      return prevChatters; // return unchanged if not found, actual fetch will happen below
-    });
-    }else{
-      
-      console.log("i am fetching");
-      
-      try {
-        const res = await fetch(`${baseUrl}/api/v1/users/${senderId}`, {
-          credentials: "include",
+      // If user not in the list, fetch and add to top
+      if (chatters.some((u) => u?._id === senderId)) {
+        setChatters((prevChatters) => {
+          const existingIndex = prevChatters.findIndex(
+            (u) => u._id === senderId
+          );
+
+          if (existingIndex !== -1) {
+            // Move existing chatter to top
+            const updatedChatters = [...prevChatters];
+            const [movedUser] = updatedChatters.splice(existingIndex, 1);
+            return [movedUser, ...updatedChatters];
+          }
+
+          return prevChatters; // return unchanged if not found, actual fetch will happen below
         });
-        if (!res.ok) throw new Error("Failed to fetch user");
-        
-        const data = await res.json();
-        const newUser = data?.data;
-        
-        if (newUser) {
-          console.log("i am fetched");
-          setChatters((prevChatters) => [newUser, ...prevChatters]);
+      } else {
+        console.log("i am fetching");
+
+        try {
+          const res = await fetch(`${baseUrl}/api/v1/users/${senderId}`, {
+            method: 'GET',
+        credentials: "include",
+        headers: {
+    "Content-Type": "application/json",
+  },
+          });
+          if (!res.ok) throw new Error("Failed to fetch user");
+
+          const data = await res.json();
+          const newUser = data?.data;
+
+          if (newUser) {
+            console.log("i am fetched");
+            setChatters((prevChatters) => [newUser, ...prevChatters]);
+          }
+        } catch (err) {
+          console.error("Error fetching new chatter:", err);
         }
-      } catch (err) {
-        console.error("Error fetching new chatter:", err);
       }
-    }
-  };
+    };
     socket?.on("newMessage", handleNewChatter);
 
     return () => socket?.off("newMessage", handleNewChatter);
   }, [socket, chatters]);
   // }, [socket]);
 
- 
-
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (
     <div className="chatapp">
       <div className="left" id="left">
-        {leftOpen && <div className="searchSystem">
-          <input
-            type="search"
-            placeholder="Search users..."
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-          />
-        </div>}
+        {leftOpen && (
+          <div className="searchSystem">
+            <input
+              type="search"
+              placeholder="Search users..."
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+            />
+          </div>
+        )}
         <div className="userslist">
-          {leftOpen && users?.map((user, index) => (
-            <div key={index}>
-              <UserListComponent {...user} />
-            </div>
-          ))}
-          <h6 className="pastChattersTag">past chatters <span onClick={() => setLeftOpen(prev => !prev)} className="showLeftController">  {!leftOpen?<i className="fas fa-plus"></i>:<i className="fas fa-minus"></i>}</span></h6>
-          {leftOpen && chatters?.map((user, index) => (
-            <div key={index}>
-              <UserListComponent {...user} />
-            </div>
-          ))}
+          {leftOpen &&
+            users?.map((user, index) => (
+              <div key={index}>
+                <UserListComponent {...user} />
+              </div>
+            ))}
+          <h6 className="pastChattersTag">
+            past chatters{" "}
+            <span
+              onClick={() => setLeftOpen((prev) => !prev)}
+              className="showLeftController"
+            >
+              {" "}
+              {!leftOpen ? (
+                <i className="fas fa-plus"></i>
+              ) : (
+                <i className="fas fa-minus"></i>
+              )}
+            </span>
+          </h6>
+          {leftOpen &&
+            chatters?.map((user, index) => (
+              <div key={index}>
+                <UserListComponent {...user} />
+              </div>
+            ))}
         </div>
       </div>
 

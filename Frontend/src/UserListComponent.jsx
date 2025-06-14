@@ -29,7 +29,11 @@ export const UserListComponent = ({ _id, username, password }) => {
       const res = await fetch(
         `${baseUrl}/api/v1/messages/unreadcount/${_id}`,
         {
-          credentials: "include",
+          method: 'GET',
+        credentials: "include",
+        headers: {
+    "Content-Type": "application/json",
+  },
         }
       );
 

@@ -34,7 +34,11 @@ const ChatBox = () => {
   useEffect(() => {
     async function fetchReceiver() {
       const res = await fetch(`${baseUrl}/api/v1/users/${id}`, {
+        method: 'GET',
         credentials: "include",
+        headers: {
+    "Content-Type": "application/json",
+  },
       });
       const data = await res.json();
       setReceiverUser(data?.data);
@@ -64,7 +68,11 @@ const ChatBox = () => {
       const res = await fetch(
         `${baseUrl}/api/v1/messages/${id}`,
         {
-          credentials: "include",
+          method: 'GET',
+        credentials: "include",
+        headers: {
+    "Content-Type": "application/json",
+  },
         }
       );
       const data = await res.json();
