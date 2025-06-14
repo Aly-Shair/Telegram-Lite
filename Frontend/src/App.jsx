@@ -35,6 +35,12 @@ function App() {
 
       const data = await res.json();
 
+      if (!data?.data) {
+        logout();
+        navigate("/login");
+        return;
+      }
+
       login(data?.data);
       //  console.log(data);
     };
@@ -42,11 +48,11 @@ function App() {
     fetchuserData();
   }, []);
 
-  useEffect(() => {
-    if (!userData) {
-      navigate("/login");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!userData) {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   // const [chatters, setChatters] = useState([]);
   // past chatters
