@@ -19,7 +19,7 @@ function App() {
   // current user
   useEffect(() => {
     const fetchuserData = async () => {
-      const res = await fetch("http://localhost:8000/users/current", {
+      const res = await fetch("/api/v1/users/current", {
         credentials: "include",
       });
       if (!res.ok) {
@@ -42,7 +42,7 @@ function App() {
   useEffect(() => {
     async function fetchChatters() {
       try {
-        const res = await fetch("http://localhost:8000/users/chatters", {
+        const res = await fetch("/api/v1/users/chatters", {
           credentials: "include",
         });
 
@@ -75,7 +75,7 @@ function App() {
 
     async function fetchChatters() {
       try {
-        const res = await fetch(`http://localhost:8000/users/?search=${user}`, {
+        const res = await fetch(`/api/v1/users/?search=${user}`, {
           credentials: "include",
         });
 
@@ -125,7 +125,7 @@ function App() {
       console.log("i am fetching");
       
       try {
-        const res = await fetch(`http://localhost:8000/users/${senderId}`, {
+        const res = await fetch(`/api/v1/users/${senderId}`, {
           credentials: "include",
         });
         if (!res.ok) throw new Error("Failed to fetch user");

@@ -32,7 +32,7 @@ const ChatBox = () => {
   // Fetch receiver user
   useEffect(() => {
     async function fetchReceiver() {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${id}`, {
+      const res = await fetch(`/api/v1/users/${id}`, {
         credentials: "include",
       });
       const data = await res.json();
@@ -61,7 +61,7 @@ const ChatBox = () => {
 
     async function fetchMessages() {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/messages/${id}`,
+        `/api/v1/messages/${id}`,
         {
           credentials: "include",
         }
@@ -96,7 +96,7 @@ const ChatBox = () => {
         setMessages((prevMessages) => [...prevMessages, newMessage]);
         // setMessages((prevMessages) => [...prevMessages, {...newMessage, status: 'read'}]);
         const res = await fetch(
-          `http://localhost:8000/messages/m/r/${newMessage?._id}`,
+          `/api/v1/messages/m/r/${newMessage?._id}`,
           {
             method: "POST",
             headers: {
@@ -140,10 +140,10 @@ const ChatBox = () => {
   };
 
   const markMessagesAsRead = async (messageIds) => {
-    if (messageIds.length === 0) return;
+    if (messageIds?.length === 0) return;
 
     try {
-      const res = await fetch("http://localhost:8000/messages/mark-as-read", {
+      const res = await fetch("/api/v1/messages/mark-as-read", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -170,7 +170,7 @@ const ChatBox = () => {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/messages/${id}`,
+        `/api/v1/messages/${id}`,
         {
           method: "POST",
           credentials: "include",

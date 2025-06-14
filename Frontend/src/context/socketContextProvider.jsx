@@ -12,6 +12,7 @@ const SocketContextProvider = ({children}) => {
     useEffect(()=>{
         if(userData){
             const socketInstance = io("http://localhost:8000",{
+                withCredentials: true,
                 query:{
                     userId:userData?._id,
                 }

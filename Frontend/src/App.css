@@ -251,6 +251,12 @@ body {
   height: calc(100% - 120px);
 
   gap: 0.75rem;
+
+  /* border: 1px solid red; */
+
+  /* background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); */
+  /* background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); */
+    
 }
 
 /* Glassmorphic Chat Bubble Styles */

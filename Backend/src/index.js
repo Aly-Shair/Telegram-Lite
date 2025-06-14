@@ -1,20 +1,19 @@
-import dotenv from "dotenv";
-import dbConnect from "./DB/dbConnect.js";
+// import dotenv from "dotenv";
+// import path from "path";
+// import { fileURLToPath } from "url";
+// // Fix __dirname in ES module
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// // Load .env from project root
+// dotenv.config({ path: path.resolve(__dirname, "../.env") });
+// // dotenv.config({
+// //     path: "../.env"
+// // })
+// console.log("this is cors origin in index", process.env.CORS_ORIGIN);
+
 import { io, server } from "./app.js";
-// dotenv.config({
-//     path: "../.env"
-// })
-import path from "path";
-import { fileURLToPath } from "url";
-
-// Fix __dirname in ES module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load .env from project root
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
-
-console.log("process.env.PORT-->", process.env.PORT);
+import dbConnect from "./DB/dbConnect.js";
 
 const userSocketmap = {}; //{userId,socketId}
 
@@ -36,12 +35,14 @@ io.on("connection", (socket) => {
   });
 });
 
+const port = process.env.PORT
+
 dbConnect()
   .then((res) => {
     if (res) {
-      server.listen(process.env.PORT, () => {
+      server.listen(port, () => {
         console.log(
-          `server is listening a port: http://localhost:${process.env.PORT}`
+          `server is listening a port: http://localhost:${port}`
         );
       });
     } else {

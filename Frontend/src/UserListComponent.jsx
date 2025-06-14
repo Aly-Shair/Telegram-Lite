@@ -26,7 +26,7 @@ export const UserListComponent = ({ _id, username, password }) => {
 
     const unreadMessages = async () => {
       const res = await fetch(
-        `http://localhost:8000/messages/unreadcount/${_id}`,
+        `/api/v1/messages/unreadcount/${_id}`,
         {
           credentials: "include",
         }
