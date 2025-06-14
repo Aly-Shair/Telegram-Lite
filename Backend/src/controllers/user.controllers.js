@@ -7,6 +7,7 @@ import { Conversation } from "../models/conversation.model.js";
 const cookieOptions = {
   httpOnly: true,
   secure: true, // set to true in production (with HTTPS)
+  sameSite: 'none',
 };
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -52,7 +53,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // Set cookie or token as needed, here setting userId cookie
   res
     .status(200)
-    .cookie("userId", user._id.toString(), cookieOptions)
+    .cookie("userId", user?._id?.toString(), cookieOptions)
     .json(new ApiResponse(200, user, "Login successful"));
 });
 
