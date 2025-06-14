@@ -324,23 +324,31 @@ body {
   /* align-items: center; */
   border-top: 1px solid var(--panel-border);
   backdrop-filter: blur(10px);
-  position: relative;
   /* height: max-content; */
   height: 65px;
   overflow: hidden;
+  position: relative !important;
+  overflow: visible;
 }
 
 .c-repliedToTextContentWithMessageInput{
   border-radius: 0px !important;
   position: absolute;
-  top: -40px;
+  /* bottom: ; */
+  /* top: -40px; */
   left: 0;
   right: 0;
+  /* z-index: 5; */
+  bottom: 65px;
   background-color: rgba(15, 32, 39, 1) !important;
+  height: 40px;
+  /* min-height: 40px !important; */
 
   display: flex;
   justify-content: space-between;
   gap: 20px !important;
+
+  /* border: 1px solid red; */
 }
 
 .c-repliedToTextContentWithMessageInput span i{
