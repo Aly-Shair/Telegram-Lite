@@ -23,22 +23,23 @@ const io = new Server(server, {
   cors:{
         // origin: ["http://localhost:5173"],
         // origin: ["*"],
+        origin: "*",
         // origin: origin,
-        origin: 'https://telelite-ivory.vercel.app',
-        methods:["GET","POST"],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        credentials: true
+        // origin: 'https://telelite-ivory.vercel.app',
+        // methods:["GET","POST"],
+        // allowedHeaders: ['Content-Type', 'Authorization'],
+        // credentials: true
       } 
     })
     
     app.use(
       cors({
         // origin: "http://localhost:5173",
-        // origin: "*",
+        origin: "*",
         // origin: origin,
-        origin: 'https://telelite-ivory.vercel.app',
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        credentials: true,
+        // origin: 'https://telelite-ivory.vercel.app',
+        // allowedHeaders: ['Content-Type', 'Authorization'],
+        // credentials: true,
   })
 );
 
