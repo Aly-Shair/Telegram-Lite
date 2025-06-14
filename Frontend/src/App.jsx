@@ -32,6 +32,7 @@ function App() {
       }
 
       const data = await res.json();
+      
       login(data?.data);
       //  console.log(data);
     };
