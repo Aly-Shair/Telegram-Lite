@@ -12,6 +12,14 @@ import SocketContextProvider from "./context/socketContextProvider.jsx";
 import PastChattersContextProvider from "./context/pastChattersContextProvider.jsx";
 const router = createBrowserRouter([
   {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+  {
     path: "/",
     element: <App />, // This will serve as the layout component
     children: [
@@ -23,14 +31,7 @@ const router = createBrowserRouter([
       //   index: true,
       //   element: <div>Select a chat</div>
       // }
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
+      
     ],
   },
   // {
