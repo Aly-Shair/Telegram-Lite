@@ -597,6 +597,10 @@ body {
     z-index: -2;
   }
 
+  .leftOpened{
+    z-index: 1;
+  }
+
   .right {
     background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
     width: 100%;

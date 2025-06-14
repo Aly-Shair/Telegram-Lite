@@ -246,6 +246,7 @@ const ChatBox = () => {
             navigate("/");
             const left = document.getElementById("left");
             left.classList.remove("leftClosed");
+            // left.classList.add("leftOpened");
           }}
         ></i>
         <h3>

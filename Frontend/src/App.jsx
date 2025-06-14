@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "./context/userContext.js";
 import { useSocketContext } from "./context/socketContext.js";
@@ -9,6 +9,8 @@ import { usePastChattersContext } from "./context/pastChattersContext.js";
 import { Loader } from "./Loader.jsx";
 
 function App() {
+
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { login, logout } = useUserContext();
