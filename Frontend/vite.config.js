@@ -6,7 +6,7 @@ export default defineConfig({
   server:{
     proxy:{
       // '/api': import.meta.env.VITE_API_URL
-      '/api': "http://localhost:8000"
+      '/api': "https://telegram-lite.onrender.com"
     }
   },
   plugins: [react()],
