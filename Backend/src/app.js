@@ -26,6 +26,7 @@ const io = new Server(server, {
         // origin: origin,
         origin: 'https://telelite-ivory.vercel.app',
         methods:["GET","POST"],
+        allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true
       } 
     })
@@ -36,6 +37,7 @@ const io = new Server(server, {
         // origin: "*",
         // origin: origin,
         origin: 'https://telelite-ivory.vercel.app',
+        allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
   })
 );
