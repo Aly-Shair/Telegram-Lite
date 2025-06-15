@@ -171,8 +171,12 @@ const ChatBox = () => {
     }
   };
 
+  const [messageSendingLoader, setMessageSendingLoader] = useState(false)
   const handleSendMessage = async () => {
+
     if (!newMessage?.trim()) return;
+
+    setMessageSendingLoader(true)
 
     try {
       const res = await fetch(`${baseUrl}/api/v1/messages/${id}`, {
@@ -233,6 +237,9 @@ const ChatBox = () => {
       appendReceiverUserInChatters();
     } catch (err) {
       console.error("Failed to send message", err);
+    }
+    finally{
+      setMessageSendingLoader(false)
     }
   };
 
@@ -362,7 +369,7 @@ const ChatBox = () => {
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
           />
-          <button onClick={handleSendMessage}>Send</button>
+          <button onClick={handleSendMessage} disabled={messageSendingLoader}>{messageSendingLoader?"Sending...":"Send"}</button>
         </div>
       </div>
     </div>
