@@ -199,6 +199,7 @@ body {
    --------------------------- */
 .right {
   width: 72%;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   background: transparent;
@@ -207,6 +208,8 @@ body {
 .chatBox{
   height: 100%;
   /* border: 1px solid black; */
+  /* background: #000; */
+  
 }
 
 /* Chat Header */
@@ -256,7 +259,7 @@ body {
 
   /* background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); */
   /* background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); */
-    
+    /* background: blue; */
 }
 
 /* Glassmorphic Chat Bubble Styles */
@@ -542,88 +545,90 @@ body {
 
 
 @media (max-width: 800px) {
-  /* .showLeftController {
-    display: block;
-  }
 
-  .chatapp {
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
-    border-radius: 0;
-  }
-
-  .left {
-    width: 100%;
-    height: max-content;
-    border-right: none;
-    border-bottom: 1px solid var(--panel-border);
-  }
-
-  .right {
-    width: 100%;
-  }
-
-  .chatBox {
-  }
-
-  .chatContainer {
-  }
-
-  .chatHeader h3 {
-    font-size: 1rem;
-  } */
-
-   /* .showLeftController {
-    display: block;
-  } */
-
-  .chatapp {
-    /* flex-direction: column; */
+  /* .chatapp {
     width: 100%;
     margin: 0;
     border-radius: 0;
-    /* border: 1px solid red; */
     position: relative;
-    /* height: 100%; */
     height: 100dvh;
   }
-
+  
   .left {
     background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-    /* background: blue; */
- 
     width: 100%;
     height: max-content;
     border-right: none;
     border-bottom: 1px solid var(--panel-border);
     position: absolute;
+    height: 100dvh;
   }
-
+  
   .leftClosed{
     z-index: -2;
   }
-
+  
   .leftOpened{
     z-index: 1;
   }
-
+  
   .right {
     background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
     width: 100%;
   }
-
+  
   .chatBox {
+    
   }
-
+  
   .chatContainer {
   }
 
   .chatHeader h3 {
-    
+    font-size: 1rem;
+  } */
+
+
+
+   .chatapp {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    position: relative;
+    height: 100dvh;
+
+    /* background-color: black; */
+  }
+  
+  .left {
+    width: 100%;
+    height: max-content;
+    border-right: none;
+    border-bottom: 1px solid var(--panel-border);
+    position: absolute;
+    height: 100dvh;
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    z-index: 1;
+  }
+  
+  .leftClosed{
+    z-index: -1;
+  }
+  
+  .leftOpened{
+    z-index: 1;
+  }
+  
+  .right {
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    width: 100%;
+    height: 100dvh;
+  }
+  
+  .chatHeader h3 {
     font-size: 1rem;
   }
+
 }
 
 @media (max-width: 480px) {
