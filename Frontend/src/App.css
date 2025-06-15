@@ -584,7 +584,7 @@ body {
     width: 100%;
     margin: 0;
     border-radius: 0;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     position: relative;
     /* height: 100%; */
     height: 100dvh;
@@ -621,8 +621,7 @@ body {
   }
 
   .chatHeader h3 {
-    position: sticky;
-    top: 0;
+    
     font-size: 1rem;
   }
 }

@@ -34,11 +34,11 @@ const ChatBox = () => {
   useEffect(() => {
     async function fetchReceiver() {
       const res = await fetch(`${baseUrl}/api/v1/users/${id}`, {
-        method: 'GET',
+        method: "GET",
         credentials: "include",
         headers: {
-    "Content-Type": "application/json",
-  },
+          "Content-Type": "application/json",
+        },
       });
       const data = await res.json();
       setReceiverUser(data?.data);
@@ -65,16 +65,13 @@ const ChatBox = () => {
     didFetchConversation.current = true;
 
     async function fetchMessages() {
-      const res = await fetch(
-        `${baseUrl}/api/v1/messages/${id}`,
-        {
-          method: 'GET',
+      const res = await fetch(`${baseUrl}/api/v1/messages/${id}`, {
+        method: "GET",
         credentials: "include",
         headers: {
-    "Content-Type": "application/json",
-  },
-        }
-      );
+          "Content-Type": "application/json",
+        },
+      });
       const data = await res.json();
       setMessages(data.data);
       console.log("this is conversation: ", data?.data);
@@ -178,20 +175,17 @@ const ChatBox = () => {
     if (!newMessage?.trim()) return;
 
     try {
-      const res = await fetch(
-        `${baseUrl}/api/v1/messages/${id}`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            message: newMessage,
-            repliedTo: isReplying?._id,
-          }),
-        }
-      );
+      const res = await fetch(`${baseUrl}/api/v1/messages/${id}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: newMessage,
+          repliedTo: isReplying?._id,
+        }),
+      });
 
       if (!res.ok) {
         // console.log('failed to send message');
@@ -358,6 +352,10 @@ const ChatBox = () => {
         )}
         <div className="chatInput">
           <input
+            id="chatInputBox"
+            onFocus={() => {
+              window.scrollTo(0, document.body.scrollHeight);
+            }}
             type="text"
             placeholder="Type a message..."
             value={newMessage}
