@@ -31,16 +31,17 @@ function Login() {
         body: JSON.stringify({ username: username.trim(), password: password.trim() }),
       })
 
+      const data = await response.json();
       if (!response.ok) {
         logout()
-        throw new Error('Login failed')
+        throw new Error(data?.message)
       }
       
-      const data = await response.json();
       login(data?.data)
       
       navigate('/')
       
+      setError(data?.message || 'Login failed')
       
     } catch (err) {
       logout()

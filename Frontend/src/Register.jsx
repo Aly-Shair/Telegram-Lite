@@ -28,13 +28,15 @@ function Register() {
         body: JSON.stringify({ username: username.trim(), password: password.trim() }),
       })
 
+      const data = await response.json()
       if (!response.ok) {
-        throw new Error('Login failed')
+        throw new Error(data?.message)
       }
 
       navigate('/login')
 
       
+      setError(data?.message || 'failed')
     } catch (err) {
       setError(err.message || 'failed')
     } finally {
