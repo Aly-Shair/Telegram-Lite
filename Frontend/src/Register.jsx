@@ -28,8 +28,11 @@ function Register() {
         body: JSON.stringify({ username: username.trim(), password: password.trim() }),
       })
 
+      const data = await response.json()
+      
       if (!response.ok) {
-        throw new Error('registration failed: username already exist')
+        setError(data?.message || 'failed')
+        return
       }
 
       navigate('/login')
