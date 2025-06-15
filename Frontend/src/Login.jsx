@@ -35,7 +35,8 @@ function Login() {
       if (!response.ok) {
         logout()
         setError(data?.message)
-        throw new Error('Login failed')
+        return
+        // throw new Error('Login failed')
       }
       
       login(data?.data)
