@@ -621,6 +621,8 @@ body {
   }
 
   .chatHeader h3 {
+    position: sticky;
+    top: 0;
     font-size: 1rem;
   }
 }
