@@ -1,4 +1,4 @@
-// import dotenv from "dotenv";
+import dotenv from "dotenv";
 // import path from "path";
 // import { fileURLToPath } from "url";
 // // Fix __dirname in ES module
@@ -7,9 +7,9 @@
 
 // // Load .env from project root
 // dotenv.config({ path: path.resolve(__dirname, "../.env") });
-// // dotenv.config({
-// //     path: "../.env"
-// // })
+dotenv.config({
+    path: "../.env"
+})
 // console.log("this is cors origin in index", process.env.CORS_ORIGIN);
 
 import { io, server } from "./app.js";
