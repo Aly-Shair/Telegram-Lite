@@ -11,7 +11,7 @@ dotenv.config({
     path: "../.env"
 })
 // console.log("this is cors origin in index", process.env.CORS_ORIGIN);
-// a
+
 import { io, server } from "./app.js";
 import dbConnect from "./DB/dbConnect.js";
 

@@ -5,7 +5,7 @@
 // const __dirname = path.dirname(__filename);
 // dotenv.config({ path: path.resolve(__dirname, "../.env") });
 // console.log("this is cors origin in index", process.env.CORS_ORIGIN);
-// a
+
 
 import cors from "cors";
 import {Server} from "socket.io"
