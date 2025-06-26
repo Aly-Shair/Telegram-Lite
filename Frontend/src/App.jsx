@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useParams, useOutlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "./context/userContext.js";
 import { useSocketContext } from "./context/socketContext.js";
@@ -10,6 +10,7 @@ import { Loader } from "./Loader.jsx";
 import { baseUrl } from "../baseUrl.js";
 
 function App() {
+  const outlet = useOutlet()
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const { login, logout, userData } = useUserContext();
@@ -225,6 +226,7 @@ function App() {
       </div>
 
       <div className="right" id="right">
+      {/* <div className="right" id="right" style={{ width: outlet ? "100%" : "0", transition: "width 0.3s" }}> */}
         <Outlet />
       </div>
     </div>
