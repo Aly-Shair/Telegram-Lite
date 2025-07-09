@@ -47,6 +47,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "16kb" }));
 app.use(cookieParser());
 
+
+app.get("/", (req, res) => {
+  res.send("Telegram Lite backend is running.");
+});
+
+
 import userRouter from "./routes/user.routes.js";
 app.use("/api/v1/users", userRouter);
 
